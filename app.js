@@ -5,7 +5,9 @@ let logger = require('morgan');
 
 
 let app = express();
-require('./controllers')(app);
+let options = require('./knexfile').development;
+let knex = require('knex')(options);
+require('./controllers')(app ,knex);
 
 app.use(logger('dev'));
 app.use(express.json());
