@@ -1,2 +1,3 @@
-
-        npm install && npm run dev
+1.              npm install
+2.              npm run migrate-seed
+3.              npm run dev

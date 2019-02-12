@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "nodemon ./bin/www",
+    "migrate-seed": "knex migrate:latest && knex seed:run",
+    "migrate-back": "knex migrate:rollback",
     "start": "node ./bin/www",
     "start:lint": "eslint --ext .js ./"
   },
