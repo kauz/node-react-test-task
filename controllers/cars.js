@@ -12,8 +12,8 @@ function getFilteredCars (request, knex) {
     'model.name as model',
     'manufacturer.name as manufacturer',
     'manufacturer.country',
-    'color.hex',
-    'color.name')
+    'color.hex as colorHex',
+    'color.name as color')
     .from('car')
     .where((qb) => {
 
