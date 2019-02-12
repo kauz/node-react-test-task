@@ -22,6 +22,7 @@ exports.up = function (knex, Promise) {
         table.integer('fk_color').references('color.id');
         table.integer('fk_model').references('model.id');
         table.string('year').notNullable();
+        table.string('picture');
       })
 
   ]);
