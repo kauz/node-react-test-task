@@ -1,14 +1,20 @@
 module.exports.controller = (app, knex) => {
-  app.get('/cars', async (req, res) =>  {
+  app.get('/cars', async (req, res) => {
     let cars = await getFilteredCars(req.query, knex);
+    cars.forEach(car => {
+      console.log(req.protocol);
+      car.picture =
+        `${req.protocol}://${req.headers.host}/images/cars/${car.picture}`;
+    });
     res.json(cars);
   });
 };
 
 
-function getFilteredCars (request, knex) {
+function getFilteredCars(request, knex) {
   return knex.select('car.id',
     'car.year',
+    'car.picture',
     'model.name as model',
     'manufacturer.name as manufacturer',
     'manufacturer.country',
@@ -17,8 +23,12 @@ function getFilteredCars (request, knex) {
     .from('car')
     .where((qb) => {
 
+      if (request.manufacturer) {
+        qb.where('manufacturer.name', '=', request.manufacturer);
+      }
+
       if (request.model) {
-        qb.where('model.name', '=', request.model.toUpperCase());
+        qb.where('model.name', '=', request.model);
       }
 
       if (request.color) {
